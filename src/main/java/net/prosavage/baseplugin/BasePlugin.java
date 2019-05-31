@@ -1,22 +1,31 @@
 package net.prosavage.baseplugin;
 
+import net.prosavage.baseplugin.serializer.Persist;
 import org.bukkit.plugin.java.JavaPlugin;
 
-import java.util.logging.Logger;
 
 
 public class BasePlugin extends JavaPlugin {
 
 
-    Logger logger;
-    
+    private static BasePlugin instance;
+    private static Persist persist;
 
     @Override
     public void onEnable() {
-        logger = getLogger();
+        getLogger().info("Running Base Framework Enable...");
+        instance = this;
+        getDataFolder().mkdirs();
+        persist = new Persist();
     }
 
+    public static Persist getPersist() {
+        return persist;
+    }
 
+    public static BasePlugin getInstance() {
+        return instance;
+    }
 
 
 
