@@ -43,7 +43,6 @@ public class BasePlugin extends JavaPlugin {
         logger.info("================================================");
         logger.info("Plugin: " + getDescription().getName());
         logger.info("Version: " + getDescription().getVersion());
-        logger.info("API Version: " + getDescription().getAPIVersion());
         logger.info("Author(s): " + getDescription().getAuthors());
         logger.info("Description: " + getDescription().getDescription());
         logger.info("================================================");
