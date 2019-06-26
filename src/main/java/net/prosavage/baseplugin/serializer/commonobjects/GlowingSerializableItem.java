@@ -1,6 +1,7 @@
 package net.prosavage.baseplugin.serializer.commonobjects;
 
-import net.prosavage.baseplugin.MultiversionMaterials;
+
+import net.prosavage.baseplugin.XMaterial;
 import org.bukkit.Material;
 
 import java.util.List;
@@ -8,7 +9,7 @@ import java.util.List;
 public class GlowingSerializableItem extends SerializableItem {
     private boolean isGlowing;
 
-    public GlowingSerializableItem(MultiversionMaterials material, String name, List<String> lore, int amt, boolean isGlowing) {
+    public GlowingSerializableItem(XMaterial material, String name, List<String> lore, int amt, boolean isGlowing) {
         super(material, name, lore, amt);
         this.isGlowing = isGlowing;
     }

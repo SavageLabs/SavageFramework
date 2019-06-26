@@ -1,18 +1,18 @@
 package net.prosavage.baseplugin.serializer.commonobjects;
 
-import net.prosavage.baseplugin.MultiversionMaterials;
+import net.prosavage.baseplugin.XMaterial;
 import org.bukkit.Material;
 
 import java.util.List;
 
 public class SerializableItem {
 
-    private MultiversionMaterials material;
+    private XMaterial material;
     private String name;
     private List<String> lore;
     private int amt;
 
-    public SerializableItem(MultiversionMaterials material, String name, List<String> lore, int amount) {
+    public SerializableItem(XMaterial material, String name, List<String> lore, int amount) {
         this.material = material;
         this.name = name;
         this.lore = lore;
@@ -28,11 +28,11 @@ public class SerializableItem {
         this.name = name;
     }
 
-    public MultiversionMaterials getMaterial() {
+    public XMaterial getMaterial() {
         return material;
     }
 
-    public void setMaterial(MultiversionMaterials material) {
+    public void setMaterial(XMaterial material) {
         this.material = material;
     }
 
