@@ -1,7 +1,9 @@
 package net.prosavage.baseplugin.serializer.commonobjects;
 
+import net.prosavage.baseplugin.ItemBuilder;
 import net.prosavage.baseplugin.XMaterial;
 import org.bukkit.Material;
+import org.bukkit.inventory.ItemStack;
 
 import java.util.List;
 
@@ -50,5 +52,9 @@ public class SerializableItem {
 
     public void setAmt(int amt) {
         this.amt = amt;
+    }
+
+    public ItemStack buildItem() {
+        return new ItemBuilder(material.parseItem()).name(name).lore(lore).amount(amt).glowing(false).build();
     }
 }
