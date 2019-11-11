@@ -1,6 +1,6 @@
 package net.prosavage.baseplugin.serializer;
 
-import net.prosavage.baseplugin.BasePlugin;
+import net.prosavage.baseplugin.SavagePlugin;
 
 
 public class Serializer {
@@ -10,7 +10,7 @@ public class Serializer {
      * Saves your class to a .json file.
      */
     public void save(Object instance) {
-        BasePlugin.getPersist().save(instance);
+        SavagePlugin.getPersist().save(instance);
     }
 
     /**
@@ -18,7 +18,7 @@ public class Serializer {
      *
    */
     public <T> T load(T def, Class<T> clazz, String name) {
-        return BasePlugin.getPersist().loadOrSaveDefault(def, clazz, name);
+        return SavagePlugin.getPersist().loadOrSaveDefault(def, clazz, name);
     }
 
 

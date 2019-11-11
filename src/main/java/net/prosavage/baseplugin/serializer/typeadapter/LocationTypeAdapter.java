@@ -2,7 +2,7 @@ package net.prosavage.baseplugin.serializer.typeadapter;
 
 import com.google.gson.*;
 
-import net.prosavage.baseplugin.BasePlugin;
+import net.prosavage.baseplugin.SavagePlugin;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
 
@@ -22,7 +22,7 @@ public class LocationTypeAdapter implements JsonSerializer<Location>, JsonDeseri
             return object;
         } catch (Exception ex) {
             ex.printStackTrace();
-            BasePlugin.getInstance().getLogger().log(Level.WARNING, "Error encountered while serializing a Location.");
+            SavagePlugin.getInstance().getLogger().log(Level.WARNING, "Error encountered while serializing a Location.");
             return object;
         }
     }
@@ -39,7 +39,7 @@ public class LocationTypeAdapter implements JsonSerializer<Location>, JsonDeseri
                     object.get("z").getAsDouble());
         } catch (Exception ex) {
             ex.printStackTrace();
-            BasePlugin.getInstance().getLogger().log(Level.WARNING, "Error encountered while" +
+            SavagePlugin.getInstance().getLogger().log(Level.WARNING, "Error encountered while" +
                     " deserializing a Location.");
             return null;
         }

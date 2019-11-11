@@ -3,18 +3,16 @@ package net.prosavage.baseplugin.serializer;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
-import net.prosavage.baseplugin.BasePlugin;
+import net.prosavage.baseplugin.SavagePlugin;
 import net.prosavage.baseplugin.serializer.typeadapter.EnumTypeAdapter;
 import net.prosavage.baseplugin.serializer.typeadapter.InventoryTypeAdapter;
 import net.prosavage.baseplugin.serializer.typeadapter.LocationTypeAdapter;
-import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.inventory.Inventory;
 
 import java.io.File;
 import java.lang.reflect.Modifier;
 import java.lang.reflect.Type;
-import java.util.logging.Level;
 
 public class Persist {
 
@@ -51,7 +49,7 @@ public class Persist {
     // ------------------------------------------------------------ //
 
     public File getFile(String name) {
-        return new File(BasePlugin.getInstance().getDataFolder(), name + ".json");
+        return new File(SavagePlugin.getInstance().getDataFolder(), name + ".json");
     }
 
     public File getFile(Class<?> clazz) {
@@ -79,7 +77,7 @@ public class Persist {
 
     public <T> T loadOrSaveDefault(T def, Class<T> clazz, File file) {
         if (!file.exists()) {
-            BasePlugin.getInstance().getLogger().info("Creating default: " + file);
+            SavagePlugin.getInstance().getLogger().info("Creating default: " + file);
             this.save(def, file);
             return def;
         }
@@ -87,14 +85,14 @@ public class Persist {
         T loaded = this.load(clazz, file);
 
         if (loaded == null) {
-            BasePlugin.getInstance().getLogger().warning("Using default as I failed to load: " + file);
+            SavagePlugin.getInstance().getLogger().warning("Using default as I failed to load: " + file);
 
             // backup bad file, so user can attempt to recover their changes from it
             File backup = new File(file.getPath() + "_bad");
             if (backup.exists()) {
                 backup.delete();
             }
-            BasePlugin.getInstance().getLogger().warning("Backing up copy of bad file to: " + backup);
+            SavagePlugin.getInstance().getLogger().warning("Backing up copy of bad file to: " + backup);
             file.renameTo(backup);
 
             return def;
@@ -136,7 +134,7 @@ public class Persist {
         try {
             return gson.fromJson(content, clazz);
         } catch (Exception ex) {    // output the error message rather than full stack trace; error parsing the file, most likely
-            BasePlugin.getInstance().getLogger().warning(ex.getMessage());
+            SavagePlugin.getInstance().getLogger().warning(ex.getMessage());
         }
 
         return null;
@@ -159,7 +157,7 @@ public class Persist {
         try {
             return (T) gson.fromJson(content, typeOfT);
         } catch (Exception ex) {    // output the error message rather than full stack trace; error parsing the file, most likely
-           BasePlugin.getInstance().getLogger().warning(ex.getMessage());
+           SavagePlugin.getInstance().getLogger().warning(ex.getMessage());
         }
 
         return null;

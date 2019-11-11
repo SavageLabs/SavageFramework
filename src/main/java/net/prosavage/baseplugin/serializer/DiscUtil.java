@@ -1,12 +1,11 @@
 package net.prosavage.baseplugin.serializer;
 
 import com.google.common.io.Files;
-import net.prosavage.baseplugin.BasePlugin;
+import net.prosavage.baseplugin.SavagePlugin;
 import org.bukkit.Bukkit;
 
 import java.io.*;
 import java.nio.charset.StandardCharsets;
-import java.nio.file.OpenOption;
 import java.util.HashMap;
 import java.util.concurrent.locks.Lock;
 import java.util.concurrent.locks.ReadWriteLock;
@@ -85,7 +84,7 @@ public class DiscUtil {
                 lock.unlock();
             }
         } else {
-            Bukkit.getScheduler().runTaskAsynchronously(BasePlugin.getInstance(), () -> {
+            Bukkit.getScheduler().runTaskAsynchronously(SavagePlugin.getInstance(), () -> {
                 lock.lock();
                 try {
                     write(file, content);
