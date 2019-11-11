@@ -7,10 +7,10 @@ import org.bukkit.plugin.java.JavaPlugin;
 import java.util.logging.Logger;
 
 
-public class BasePlugin extends JavaPlugin {
+public class SavagePlugin extends JavaPlugin {
 
 
-    private static BasePlugin instance;
+    private static SavagePlugin instance;
     private static Persist persist;
     private static Logger logger;
 
@@ -18,7 +18,7 @@ public class BasePlugin extends JavaPlugin {
         return persist;
     }
 
-    public static BasePlugin getInstance() {
+    public static SavagePlugin getInstance() {
         return instance;
     }
 
