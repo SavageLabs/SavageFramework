@@ -30,11 +30,32 @@ public class StringProcessor {
     }
 
 
+    /**
+     * Processes Placeholder Objects in a string.
+     *
+     * @param line - line to parse placeholders for.
+     * @param placeholders - Placeholder objects to use in the parsing.
+     * @return - returns the parsed line.
+     */
     public static String processMultiplePlaceholders(String line, Placeholder... placeholders) {
         for (Placeholder placeholder : placeholders) {
             line = color(placeholder.process(line));
         }
         return line;
+    }
+
+    /**
+     * Processes Placeholder Objects in a string.
+     *
+     * @param lines - lines to parse placeholders for.
+     * @param placeholders - Placeholder objects to use in the parsing.
+     * @return - returns the parsed lines.
+     */
+    public static List<String> processMultiplePlaceholders(List<String> lines, Placeholder... placeholders) {
+        for (String line : lines) {
+            processMultiplePlaceholders(line, placeholders);
+        }
+        return lines;
     }
 
 
