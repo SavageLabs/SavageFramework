@@ -22,6 +22,9 @@ public class WorldBorderUtil {
 
     public WorldBorderUtil(JavaPlugin instance) {
         try {
+            this.instance = instance;
+            minecraftVersion = getVersion();
+            versionNumber = getVersionNumber();
             worldBorder = getNMSClass("WorldBorder").getConstructor().newInstance();
             setCenter = worldBorder.getClass().getMethod("setCenter", double.class, double.class);
             setSize = worldBorder.getClass().getMethod("setSize", double.class);
@@ -31,9 +34,8 @@ public class WorldBorderUtil {
             packetPlayOutWorldBorder = getNMSClass("PacketPlayOutWorldBorder").getConstructor(getNMSClass("WorldBorder"),
                     getNMSClass("PacketPlayOutWorldBorder").getDeclaredClasses()[getVersionNumber() > 100 ? 0 : 1]);
             craftWorldClass = getCraftClass("CraftWorld");
-            versionNumber = getVersionNumber();
-            minecraftVersion = getVersion();
-            this.instance = instance;
+
+
         } catch (Exception ex) {
             ex.printStackTrace();
         }
@@ -41,7 +43,6 @@ public class WorldBorderUtil {
 
     public void sendWorldBorder(Player player, Color color, double size, Location centerLocation) {
         try {
-            System.out.println(craftWorldClass);
             Object craftWorld = craftWorldClass.cast(centerLocation.getWorld());
             setField(worldBorder, "world", craftWorld.getClass().getMethod("getHandle").invoke(craftWorld), false);
 

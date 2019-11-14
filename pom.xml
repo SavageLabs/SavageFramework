@@ -6,7 +6,7 @@
 
     <groupId>net.prosavage</groupId>
     <artifactId>BasePlugin</artifactId>
-    <version>1.4</version>
+    <version>1.5</version>
     <build>
         <plugins>
             <plugin>
