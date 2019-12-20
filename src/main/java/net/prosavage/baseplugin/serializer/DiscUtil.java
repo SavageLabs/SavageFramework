@@ -75,7 +75,6 @@ public class DiscUtil {
         if (sync) {
             lock.lock();
             try {
-                System.out.println("Writing to file!");
                 file.createNewFile();
                 Files.write(content.getBytes(), file);
             } catch (IOException e) {
