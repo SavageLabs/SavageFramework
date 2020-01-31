@@ -1,2 +1,5 @@
 .idea/
 target/
+BasePlugin.iml
+dependency-reduced-pom.xml
+

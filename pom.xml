@@ -56,11 +56,11 @@
                     <relocations>
                         <relocation>
                             <pattern>fr.mrmicky.fastparticle</pattern>
-                            <shadedPattern>net.prosavage.baseplugin.shade.fastparticles</shadedPattern>
+                            <shadedPattern>net.prosavage.baseplugin.shade.fastparticle</shadedPattern>
                         </relocation>
                         <relocation>
-                            <pattern>org.apache.commons</pattern>
-                            <shadedPattern>net.prosavage.baseplugin.shade.apache-commons</shadedPattern>
+                            <pattern>org.apache</pattern>
+                            <shadedPattern>net.prosavage.baseplugin.shade.apache</shadedPattern>
                         </relocation>
                         <relocation>
                             <pattern>com.google.gson</pattern>
@@ -116,7 +116,7 @@
         <dependency>
             <groupId>org.spigotmc</groupId>
             <artifactId>spigot-api</artifactId>
-            <version>1.14.2-R0.1-SNAPSHOT</version>
+            <version>1.15.2-R0.1-SNAPSHOT</version>
             <scope>provided</scope>
             <exclusions>
                 <exclusion>
