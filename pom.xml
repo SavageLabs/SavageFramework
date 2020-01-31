@@ -6,7 +6,7 @@
 
     <groupId>net.prosavage</groupId>
     <artifactId>BasePlugin</artifactId>
-    <version>1.5.3</version>
+    <version>1.5.4</version>
 
     <properties>
         <kotlin.version>1.3.61</kotlin.version>
@@ -46,7 +46,7 @@
                 <version>3.2.1</version>
                 <executions>
                     <execution>
-                        <phase>package</phase>
+                        <phase>install</phase>
                         <goals>
                             <goal>shade</goal>
                         </goals>
@@ -58,10 +58,10 @@
                             <pattern>fr.mrmicky.fastparticle</pattern>
                             <shadedPattern>net.prosavage.baseplugin.shade.fastparticles</shadedPattern>
                         </relocation>
-                        <relocation>
-                            <pattern>org.apache.commons</pattern>
-                            <shadedPattern>net.prosavage.baseplugin.shade.apache-commons</shadedPattern>
-                        </relocation>
+<!--                        <relocation>-->
+<!--                            <pattern>org.apache.commons</pattern>-->
+<!--                            <shadedPattern>net.prosavage.baseplugin.shade.apache-commons</shadedPattern>-->
+<!--                        </relocation>-->
                         <relocation>
                             <pattern>com.google.gson</pattern>
                             <shadedPattern>net.prosavage.baseplugin.shade.gson</shadedPattern>
