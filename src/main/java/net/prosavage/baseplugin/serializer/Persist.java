@@ -48,20 +48,25 @@ public class Persist {
     // GET FILE - In which file would we like to store this object?
     // ------------------------------------------------------------ //
 
-    public File getFile(String name) {
-        return new File(SavagePlugin.getInstance().getDataFolder(), name + ".json");
+    public File getFile(boolean data, String name) {
+        File dataFolder = SavagePlugin.getInstance().getDataFolder();
+        if (data) {
+            dataFolder = new File(dataFolder, "/data");
+            dataFolder.mkdirs();
+        }
+        return new File(dataFolder, name + ".json");
     }
 
     public File getFile(Class<?> clazz) {
-        return getFile(getName(clazz));
+        return getFile(false, getName(clazz));
     }
 
-    public File getFile(Object obj) {
-        return getFile(getName(obj));
+    public File getFile(boolean data, Object obj) {
+        return getFile(data, getName(obj));
     }
 
     public File getFile(Type type) {
-        return getFile(getName(type));
+        return getFile(false, getName(type));
     }
 
 
@@ -71,8 +76,8 @@ public class Persist {
         return loadOrSaveDefault(def, clazz, getFile(clazz));
     }
 
-    public <T> T loadOrSaveDefault(T def, Class<T> clazz, String name) {
-        return loadOrSaveDefault(def, clazz, getFile(name));
+    public <T> T loadOrSaveDefault(boolean data, T def, Class<T> clazz, String name) {
+        return loadOrSaveDefault(def, clazz, getFile(data, name));
     }
 
     public <T> T loadOrSaveDefault(T def, Class<T> clazz, File file) {
@@ -103,12 +108,13 @@ public class Persist {
 
     // SAVE
 
-    public boolean save(Object instance) {
-        return save(instance, getFile(instance));
+
+    public boolean save(boolean data, Object instance) {
+        return save(instance, getFile(data, instance));
     }
 
     public boolean save(Object instance, String name) {
-        return save(instance, getFile(name));
+        return save(instance, getFile(false, name));
     }
 
     public boolean save(Object instance, File file) {
@@ -122,7 +128,7 @@ public class Persist {
     }
 
     public <T> T load(Class<T> clazz, String name) {
-        return load(clazz, getFile(name));
+        return load(clazz, getFile(false, name));
     }
 
     public <T> T load(Class<T> clazz, File file) {
@@ -144,7 +150,7 @@ public class Persist {
     // LOAD BY TYPE
     @SuppressWarnings("unchecked")
     public <T> T load(Type typeOfT, String name) {
-        return (T) load(typeOfT, getFile(name));
+        return (T) load(typeOfT, getFile(false, name));
     }
 
     @SuppressWarnings("unchecked")
@@ -157,7 +163,7 @@ public class Persist {
         try {
             return (T) gson.fromJson(content, typeOfT);
         } catch (Exception ex) {    // output the error message rather than full stack trace; error parsing the file, most likely
-           SavagePlugin.getInstance().getLogger().warning(ex.getMessage());
+            SavagePlugin.getInstance().getLogger().warning(ex.getMessage());
         }
 
         return null;

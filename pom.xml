@@ -6,7 +6,7 @@
 
     <groupId>net.prosavage</groupId>
     <artifactId>BasePlugin</artifactId>
-    <version>1.5.4</version>
+    <version>1.6</version>
 
     <properties>
         <kotlin.version>1.3.61</kotlin.version>
