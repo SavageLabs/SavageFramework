@@ -19,6 +19,8 @@ public class Persist {
 
     private final Gson gson = buildGson().create();
 
+    private final Gson dataGson = buildDataGson().create();
+
     public static String getName(Class<?> clazz) {
         return clazz.getSimpleName().toLowerCase();
     }
@@ -36,7 +38,20 @@ public class Persist {
     }
 
     private GsonBuilder buildGson() {
-        return new GsonBuilder().setPrettyPrinting().disableHtmlEscaping()
+        return new GsonBuilder()
+                .setPrettyPrinting()
+                .disableHtmlEscaping()
+                .enableComplexMapKeySerialization()
+                .excludeFieldsWithModifiers(Modifier.TRANSIENT, Modifier.VOLATILE)
+                .registerTypeAdapter(Location.class, new LocationTypeAdapter())
+                .registerTypeAdapter(Inventory.class, new InventoryTypeAdapter())
+                .registerTypeAdapterFactory(EnumTypeAdapter.ENUM_FACTORY);
+    }
+
+
+    private GsonBuilder buildDataGson() {
+        return new GsonBuilder()
+                .disableHtmlEscaping()
                 .enableComplexMapKeySerialization()
                 .excludeFieldsWithModifiers(Modifier.TRANSIENT, Modifier.VOLATILE)
                 .registerTypeAdapter(Location.class, new LocationTypeAdapter())
@@ -83,7 +98,7 @@ public class Persist {
     public <T> T loadOrSaveDefault(T def, Class<T> clazz, File file) {
         if (!file.exists()) {
             SavagePlugin.getInstance().getLogger().info("Creating default: " + file);
-            this.save(def, file);
+            this.save(false, def, file);
             return def;
         }
 
@@ -110,14 +125,20 @@ public class Persist {
 
 
     public boolean save(boolean data, Object instance) {
-        return save(instance, getFile(data, instance));
+        return save(data, instance, getFile(data, instance));
     }
 
-    public boolean save(Object instance, String name) {
-        return save(instance, getFile(false, name));
+    public boolean save(boolean data, Object instance, String name) {
+        return save(data, instance, getFile(false, name));
     }
 
-    public boolean save(Object instance, File file) {
+    public boolean save(boolean data, Object instance, File file) {
+        Gson gson;
+        if (data) {
+            gson = this.dataGson;
+        } else {
+            gson = this.gson;
+        }
         return DiscUtil.writeCatch(file, gson.toJson(instance), true);
     }
 
