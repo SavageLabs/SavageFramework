@@ -61,8 +61,8 @@
                             <shadedPattern>net.prosavage.baseplugin.shade.fastparticle</shadedPattern>
                         </relocation>
                         <relocation>
-                            <pattern>org.apache</pattern>
-                            <shadedPattern>net.prosavage.baseplugin.shade.apache</shadedPattern>
+                            <pattern>org.apache.commons</pattern>
+                            <shadedPattern>net.prosavage.baseplugin.shade.apache.commons</shadedPattern>
                         </relocation>
                         <relocation>
                             <pattern>com.google.gson</pattern>
