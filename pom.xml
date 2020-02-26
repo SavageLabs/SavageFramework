@@ -53,6 +53,10 @@
                 <configuration>
                     <relocations>
                         <relocation>
+                            <pattern>com.cryptomorin.xseries</pattern>
+                            <shadedPattern>net.prosavage.baseplugin.shade.xseries</shadedPattern>
+                        </relocation>
+                        <relocation>
                             <pattern>fr.mrmicky.fastparticle</pattern>
                             <shadedPattern>net.prosavage.baseplugin.shade.fastparticle</shadedPattern>
                         </relocation>
@@ -150,6 +154,12 @@
             <groupId>fr.mrmicky</groupId>
             <artifactId>FastParticles</artifactId>
             <version>1.2.3</version>
+            <scope>compile</scope>
+        </dependency>
+        <dependency>
+            <groupId>com.github.cryptomorin</groupId>
+            <artifactId>XSeries</artifactId>
+            <version>5.3.1</version>
             <scope>compile</scope>
         </dependency>
     </dependencies>
