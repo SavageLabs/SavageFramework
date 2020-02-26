@@ -1,8 +1,7 @@
 package net.prosavage.baseplugin.serializer.commonobjects;
 
+import com.cryptomorin.xseries.XMaterial;
 import net.prosavage.baseplugin.ItemBuilder;
-import net.prosavage.baseplugin.XMaterial;
-import org.bukkit.Material;
 import org.bukkit.inventory.ItemStack;
 
 import java.util.List;
