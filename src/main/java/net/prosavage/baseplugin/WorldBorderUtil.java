@@ -48,7 +48,7 @@ public class WorldBorderUtil {
 
             setCenter.invoke(worldBorder, centerLocation.getBlockX() + 0.5, centerLocation.getBlockZ() + 0.5);
 
-            if (color == Color.Off) {
+            if (color == Color.NONE) {
                 setSize.invoke(worldBorder, Integer.MAX_VALUE);
             } else {
                 setSize.invoke(worldBorder, size);
@@ -58,13 +58,13 @@ public class WorldBorderUtil {
             setWarningDistance.invoke(worldBorder, 0);
 
             switch (color) {
-                case Red:
+                case RED:
                     transistionSizeBetween.invoke(worldBorder, size, size - 1.0D, 20000000L);
                     break;
-                case Green:
+                case GREEN:
                     transistionSizeBetween.invoke(worldBorder, size - 0.1D, size, 20000000L);
                     break;
-                case Blue:
+                case BLUE:
                 default:
                     // Do nothing as border is blue, default blue
             }
@@ -123,6 +123,6 @@ public class WorldBorderUtil {
     }
 
     public enum Color {
-        Blue, Green, Red, Off
+        BLUE, GREEN, RED, NONE
     }
 }
