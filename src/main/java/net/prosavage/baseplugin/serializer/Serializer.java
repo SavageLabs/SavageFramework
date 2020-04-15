@@ -5,15 +5,23 @@ import net.prosavage.baseplugin.SavagePlugin;
 
 public class Serializer {
 
-
     private boolean data;
+    private Persist persist;
+
+
+    public Serializer(boolean data, Persist persist) {
+        this.data = data;
+        this.persist = persist;
+    }
 
     public Serializer(boolean data) {
         this.data = data;
+        this.persist = SavagePlugin.getPersist();
     }
 
     public Serializer() {
         this.data = false;
+        this.persist = SavagePlugin.getPersist();
     }
 
     /**
@@ -28,7 +36,7 @@ public class Serializer {
      *
    */
     public <T> T load(T def, Class<T> clazz, String name) {
-        return SavagePlugin.getPersist().loadOrSaveDefault(data, def, clazz, name);
+        return persist.loadOrSaveDefault(data, def, clazz, name);
     }
 
 
