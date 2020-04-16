@@ -1,34 +1,52 @@
 package net.prosavage.baseplugin.serializer;
 
 import net.prosavage.baseplugin.SavagePlugin;
+import org.bukkit.plugin.java.JavaPlugin;
+
+import java.io.File;
+import java.time.Period;
+import java.util.logging.Logger;
 
 
 public class Serializer {
 
     private boolean data;
-    private Persist persist;
+    private File dataFolder;
+    private Logger logger;
 
 
-    public Serializer(boolean data, Persist persist) {
+
+    public Serializer(boolean data, File dataFolder, Logger logger) {
         this.data = data;
-        this.persist = persist;
+        this.dataFolder = dataFolder;
+        this.logger = logger;
     }
 
     public Serializer(boolean data) {
         this.data = data;
-        this.persist = SavagePlugin.getPersist();
+        this.dataFolder = SavagePlugin.getInstance().getDataFolder();
+        this.logger = SavagePlugin.getInstance().getLogger();
     }
 
     public Serializer() {
         this.data = false;
-        this.persist = SavagePlugin.getPersist();
+        this.dataFolder = SavagePlugin.getInstance().getDataFolder();
+        this.logger = SavagePlugin.getInstance().getLogger();
     }
 
     /**
      * Saves your class to a .json file.
      */
+    public void save(Object instance, String name) {
+        new Persist(this.dataFolder, logger).save(data, instance, name);
+    }
+
     public void save(Object instance) {
-        SavagePlugin.getPersist().save(data, instance);
+        new Persist(this.dataFolder, logger).save(data, instance);
+    }
+
+    public void save(Object instance, File file) {
+        new Persist(this.dataFolder, logger).save(data, instance, file);
     }
 
     /**
@@ -36,7 +54,11 @@ public class Serializer {
      *
    */
     public <T> T load(T def, Class<T> clazz, String name) {
-        return persist.loadOrSaveDefault(data, def, clazz, name);
+        return new Persist(dataFolder, logger).loadOrSaveDefault(data, def, clazz, name);
+    }
+
+    public <T> T load(T def, Class<T> clazz, File file) {
+        return new Persist(dataFolder, logger).loadOrSaveDefault(data, def, clazz, file);
     }
 
 

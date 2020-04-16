@@ -13,9 +13,22 @@ import org.bukkit.inventory.Inventory;
 import java.io.File;
 import java.lang.reflect.Modifier;
 import java.lang.reflect.Type;
+import java.util.logging.Logger;
 
 public class Persist {
 
+    private File dataFolder;
+    private Logger logger;
+
+    public Persist() {
+        this.dataFolder = SavagePlugin.getInstance().getDataFolder();
+        this.logger = SavagePlugin.getInstance().getLogger();
+    }
+
+    public Persist(File dataFolder, Logger logger) {
+        this.dataFolder = dataFolder;
+        this.logger = logger;
+    }
 
     private final Gson gson = buildGson().create();
 
@@ -64,7 +77,7 @@ public class Persist {
     // ------------------------------------------------------------ //
 
     public File getFile(boolean data, String name) {
-        File dataFolder = SavagePlugin.getInstance().getDataFolder();
+        File dataFolder = this.dataFolder;
         if (data) {
             dataFolder = new File(dataFolder, "/data");
             dataFolder.mkdirs();
@@ -95,9 +108,13 @@ public class Persist {
         return loadOrSaveDefault(def, clazz, getFile(data, name));
     }
 
+    public <T> T loadOrSaveDefault(boolean data, T def, Class<T> clazz, File file) {
+        return loadOrSaveDefault(def, clazz, file);
+    }
+
     public <T> T loadOrSaveDefault(T def, Class<T> clazz, File file) {
         if (!file.exists()) {
-            SavagePlugin.getInstance().getLogger().info("Creating default: " + file);
+            logger.info("Creating default: " + file);
             this.save(false, def, file);
             return def;
         }
@@ -105,14 +122,14 @@ public class Persist {
         T loaded = this.load(clazz, file);
 
         if (loaded == null) {
-            SavagePlugin.getInstance().getLogger().warning("Using default as I failed to load: " + file);
+            logger.warning("Using default as I failed to load: " + file);
 
             // backup bad file, so user can attempt to recover their changes from it
             File backup = new File(file.getPath() + "_bad");
             if (backup.exists()) {
                 backup.delete();
             }
-            SavagePlugin.getInstance().getLogger().warning("Backing up copy of bad file to: " + backup);
+            logger.warning("Backing up copy of bad file to: " + backup);
             file.renameTo(backup);
 
             return def;
@@ -161,7 +178,7 @@ public class Persist {
         try {
             return gson.fromJson(content, clazz);
         } catch (Exception ex) {    // output the error message rather than full stack trace; error parsing the file, most likely
-            SavagePlugin.getInstance().getLogger().warning(ex.getMessage());
+            logger.warning(ex.getMessage());
         }
 
         return null;
@@ -184,7 +201,7 @@ public class Persist {
         try {
             return (T) gson.fromJson(content, typeOfT);
         } catch (Exception ex) {    // output the error message rather than full stack trace; error parsing the file, most likely
-            SavagePlugin.getInstance().getLogger().warning(ex.getMessage());
+            logger.warning(ex.getMessage());
         }
 
         return null;
