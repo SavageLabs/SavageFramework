@@ -26,7 +26,7 @@ I have provided the maven coordinates for the latest build.
   <dependency>
     <groupId>net.prosavage</groupId>
     <artifactId>BasePlugin</artifactId>
-    <version>1.5.4</version>
+    <version>1.7.3</version>
   </dependency>
 <dependencies>
 ```
