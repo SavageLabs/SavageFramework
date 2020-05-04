@@ -18,7 +18,7 @@ I have provided the maven coordinates for the latest build.
   <repository>
      <id>savagelabs</id>
      <url>https://nexus.savagelabs.net/repository/maven-public/</url>
-  <repository>
+  </repository>
 <repositories>
 
 
