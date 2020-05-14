@@ -24,7 +24,7 @@ public class DiscUtil {
     // -------------------------------------------- //
     private static HashMap<String, Lock> locks = new HashMap<>();
 
-    public static byte[] readBytes(File file) throws IOException {
+    public static String readString(File file) throws IOException {
         int length = (int) file.length();
         byte[] output = new byte[length];
         InputStream in = new FileInputStream(file);
@@ -34,7 +34,7 @@ public class DiscUtil {
         }
         in.close();
 
-        return output;
+        return new String(output, StandardCharsets.UTF_8);
     }
 
     // -------------------------------------------- //
@@ -56,7 +56,7 @@ public class DiscUtil {
     // -------------------------------------------- //
 
     public static String read(File file) throws IOException {
-        return utf8(readBytes(file));
+        return readString(file);
     }
 
     public static boolean writeCatch(final File file, final String content, boolean sync) {
