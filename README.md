@@ -18,16 +18,16 @@ I have provided the maven coordinates for the latest build.
   <repository>
      <id>savagelabs</id>
      <url>https://nexus.savagelabs.net/repository/maven-public/</url>
-  <repository>
-<repositories>
+  </repository>
+</repositories>
 
 
 <dependencies>
   <dependency>
     <groupId>net.prosavage</groupId>
     <artifactId>BasePlugin</artifactId>
-    <version>1.5.4</version>
+    <version>1.7.4</version>
   </dependency>
-<dependencies>
+</dependencies>
 ```
  
