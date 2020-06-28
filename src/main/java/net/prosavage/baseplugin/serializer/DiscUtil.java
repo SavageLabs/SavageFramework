@@ -43,7 +43,7 @@ public class DiscUtil {
 
     public static void writeBytes(File file, byte[] bytes) throws IOException {
         FileOutputStream out = new FileOutputStream(file);
-        out.write(bytes);
+        out.write(new String(bytes, StandardCharsets.UTF_8).getBytes());
         out.close();
     }
 

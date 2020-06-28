@@ -31,7 +31,6 @@ public class InventoryTypeAdapter implements JsonSerializer<Inventory>, JsonDese
         return fromBase64(object.get("contents").getAsString());
     }
 
-
     public static String InventoryToString(ItemStack[] items) throws IllegalStateException {
         try {
             ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
