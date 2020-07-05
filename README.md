@@ -1,3 +1,6 @@
+## Deprecated
+See [SavagePluginX](https://github.com/SavageLabs/SavagePluginX) for my new framework.
+
 # SavageFramework
 A collection of tools to make SpigotAPI development more pleasant.
 
