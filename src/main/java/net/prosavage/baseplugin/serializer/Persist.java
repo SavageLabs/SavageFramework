@@ -2,10 +2,10 @@ package net.prosavage.baseplugin.serializer;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
-
 import net.prosavage.baseplugin.SavagePlugin;
 import net.prosavage.baseplugin.serializer.typeadapter.EnumTypeAdapter;
 import net.prosavage.baseplugin.serializer.typeadapter.InventoryTypeAdapter;
+import net.prosavage.baseplugin.serializer.typeadapter.LocalTimeTypeAdapter;
 import net.prosavage.baseplugin.serializer.typeadapter.LocationTypeAdapter;
 import org.bukkit.Location;
 import org.bukkit.inventory.Inventory;
@@ -13,6 +13,7 @@ import org.bukkit.inventory.Inventory;
 import java.io.File;
 import java.lang.reflect.Modifier;
 import java.lang.reflect.Type;
+import java.time.LocalTime;
 import java.util.logging.Logger;
 
 public class Persist {
@@ -58,6 +59,7 @@ public class Persist {
                 .excludeFieldsWithModifiers(Modifier.TRANSIENT, Modifier.VOLATILE)
                 .registerTypeAdapter(Location.class, new LocationTypeAdapter())
                 .registerTypeAdapter(Inventory.class, new InventoryTypeAdapter())
+                .registerTypeAdapter(LocalTime.class, new LocalTimeTypeAdapter())
                 .registerTypeAdapterFactory(EnumTypeAdapter.ENUM_FACTORY);
     }
 
@@ -69,6 +71,7 @@ public class Persist {
                 .excludeFieldsWithModifiers(Modifier.TRANSIENT, Modifier.VOLATILE)
                 .registerTypeAdapter(Location.class, new LocationTypeAdapter())
                 .registerTypeAdapter(Inventory.class, new InventoryTypeAdapter())
+                .registerTypeAdapter(LocalTime.class, new LocalTimeTypeAdapter())
                 .registerTypeAdapterFactory(EnumTypeAdapter.ENUM_FACTORY);
     }
 
