@@ -11,8 +11,10 @@ import org.bukkit.Location;
 import org.bukkit.inventory.Inventory;
 
 import java.io.File;
+import java.io.IOException;
 import java.lang.reflect.Modifier;
 import java.lang.reflect.Type;
+import java.nio.file.Files;
 import java.time.LocalTime;
 import java.util.logging.Logger;
 
@@ -159,7 +161,23 @@ public class Persist {
         } else {
             gson = this.gson;
         }
-        return DiscUtil.writeCatch(file, gson.toJson(instance), true);
+        File backupFile = new File(file.toPath().toString() + ".backup");
+        if (file.exists()) {
+            logger.info("Saving backup file in case of crash.");
+            try {
+                // Delete old backup file, we need to delete to save the new one.
+                if (backupFile.exists()) backupFile.delete();
+                Files.copy(file.toPath(), backupFile.toPath());
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+
+        boolean result = DiscUtil.writeCatch(file, gson.toJson(instance), true);
+        // delete our backup, since we have written our new save file.
+        backupFile.delete();
+        logger.info("Deleted backup file due to successful write..");
+        return result;
     }
 
     // LOAD BY CLASS
