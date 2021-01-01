@@ -37,6 +37,14 @@ public class Persist {
 
     private final Gson dataGson = buildDataGson().create();
 
+    public Gson getDataGson() {
+        return this.dataGson;
+    }
+
+    public Gson getGson() {
+        return this.gson;
+    }
+
     public static String getName(Class<?> clazz) {
         return clazz.getSimpleName().toLowerCase();
     }
