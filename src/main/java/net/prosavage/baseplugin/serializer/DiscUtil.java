@@ -1,24 +1,17 @@
 package net.prosavage.baseplugin.serializer;
 
-import com.google.common.io.Files;
 import net.prosavage.baseplugin.SavagePlugin;
 import org.bukkit.Bukkit;
 
 import java.io.*;
 import java.nio.charset.StandardCharsets;
 import java.util.HashMap;
+import java.util.concurrent.ForkJoinPool;
 import java.util.concurrent.locks.Lock;
 import java.util.concurrent.locks.ReadWriteLock;
 import java.util.concurrent.locks.ReentrantReadWriteLock;
 
 public class DiscUtil {
-
-    // -------------------------------------------- //
-    // CONSTANTS
-    // -------------------------------------------- //
-
-    private final static String UTF8 = "UTF-8";
-
     // -------------------------------------------- //
     // BYTE
     // -------------------------------------------- //
@@ -76,7 +69,11 @@ public class DiscUtil {
             lock.lock();
             try {
                 file.createNewFile();
-                Files.write(content.getBytes(), file);
+                final OutputStream outputStream = new FileOutputStream(file);
+
+                try (final OutputStreamWriter writer = new OutputStreamWriter(outputStream, StandardCharsets.UTF_8)) {
+                    writer.write(content);
+                }
             } catch (IOException e) {
                 e.printStackTrace();
             } finally {
@@ -94,7 +91,6 @@ public class DiscUtil {
                 }
             });
         }
-
         return true; // don't really care but for some reason this is a boolean.
     }
 

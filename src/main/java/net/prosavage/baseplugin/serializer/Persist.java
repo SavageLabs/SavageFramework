@@ -10,10 +10,10 @@ import net.prosavage.baseplugin.serializer.typeadapter.LocationTypeAdapter;
 import org.bukkit.Location;
 import org.bukkit.inventory.Inventory;
 
-import java.io.File;
-import java.io.IOException;
+import java.io.*;
 import java.lang.reflect.Modifier;
 import java.lang.reflect.Type;
+import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.time.LocalTime;
 import java.util.logging.Logger;
@@ -200,16 +200,16 @@ public class Persist {
 
     public <T> T load(Class<T> clazz, File file) {
         String content = DiscUtil.readCatch(file);
-        if (content == null) {
+        if (content == null || !file.exists()) {
             return null;
         }
 
         try {
-            return gson.fromJson(content, clazz);
+            final InputStream inputStream = new FileInputStream(file);
+            return gson.fromJson(new InputStreamReader(inputStream, StandardCharsets.UTF_8), clazz);
         } catch (Exception ex) {    // output the error message rather than full stack trace; error parsing the file, most likely
             logger.warning(ex.getMessage());
         }
-
         return null;
     }
 
@@ -223,16 +223,16 @@ public class Persist {
     @SuppressWarnings("unchecked")
     public <T> T load(Type typeOfT, File file) {
         String content = DiscUtil.readCatch(file);
-        if (content == null) {
+        if (content == null || !file.exists()) {
             return null;
         }
 
         try {
-            return (T) gson.fromJson(content, typeOfT);
+            final InputStream inputStream = new FileInputStream(file);
+            return (T) gson.fromJson(new InputStreamReader(inputStream, StandardCharsets.UTF_8), typeOfT);
         } catch (Exception ex) {    // output the error message rather than full stack trace; error parsing the file, most likely
             logger.warning(ex.getMessage());
         }
-
         return null;
     }
 
