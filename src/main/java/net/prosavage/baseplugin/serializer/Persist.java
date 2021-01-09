@@ -171,7 +171,7 @@ public class Persist {
         }
         File backupFile = new File(file.toPath().toString() + ".backup");
         if (file.exists()) {
-            logger.info("Saving backup file in case of crash.");
+//            logger.info("Saving backup file in case of crash.");
             try {
                 // Delete old backup file, we need to delete to save the new one.
                 if (backupFile.exists()) backupFile.delete();
@@ -184,7 +184,7 @@ public class Persist {
         boolean result = DiscUtil.writeCatch(file, gson.toJson(instance), true);
         // delete our backup, since we have written our new save file.
         backupFile.delete();
-        logger.info("Deleted backup file due to successful write..");
+//        logger.info("Deleted backup file due to successful write..");
         return result;
     }
 
