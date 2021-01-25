@@ -205,8 +205,17 @@ public class Persist {
         }
 
         try {
+            final File backupFile = new File(file.toPath().toString() + ".backup");
+            if (backupFile.exists()) backupFile.delete();
+            Files.copy(file.toPath(), backupFile.toPath());
+
             final InputStream inputStream = new FileInputStream(file);
-            return gson.fromJson(new InputStreamReader(inputStream, StandardCharsets.UTF_8), clazz);
+            final T result = gson.fromJson(new InputStreamReader(inputStream, StandardCharsets.UTF_8), clazz);
+
+            if (result != null) {
+                backupFile.delete();
+            }
+            return result;
         } catch (Exception ex) {    // output the error message rather than full stack trace; error parsing the file, most likely
             logger.warning(ex.getMessage());
         }
