@@ -217,7 +217,7 @@ public class Persist {
             }
             return result;
         } catch (Exception ex) {    // output the error message rather than full stack trace; error parsing the file, most likely
-            logger.warning(ex.getMessage());
+            logger.warning("error : " + ex.getMessage());
         }
         return null;
     }
